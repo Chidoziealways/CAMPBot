@@ -8,9 +8,15 @@ intents = discord.Intents.default()
 client = discord.Client(intents=intents)
 tree = discord.app_commands.CommandTree(client)
 
+synced = False
+
 @client.event
 async def on_ready():
-    print(f"Logged ")
+    global synced
+    if not synced:
+        await tree.sync()
+        synced = True
+        print("Synced commands")
 
 @tree.command(name="ping")
 async def ping(interaction: discord.Interaction):

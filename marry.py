@@ -2,7 +2,7 @@
 import discord
 from discord import app_commands
 
-from main import load_marriages, save_marriages
+from storage import load_marriages, save_marriages
 
 
 class MarryView(discord.ui.View):

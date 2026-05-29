@@ -3,10 +3,13 @@ from discord import app_commands
 import marry
 import json
 import os
-from storage import load_marriages, save_marriages
+from storage import load_marriages, save_marriages, MARRIAGE_FILE
+
 token = os.getenv("CAMPBOT_TOKEN")
 if token is None:
     raise RuntimeError("Missing CAMPBOT_TOKEN")
+if os.path.exists(MARRIAGE_FILE):
+    os.remove(MARRIAGE_FILE)
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
 tree = discord.app_commands.CommandTree(client)

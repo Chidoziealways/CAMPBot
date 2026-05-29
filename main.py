@@ -26,6 +26,12 @@ async def ping(interaction: discord.Interaction):
 async def kill(interaction: discord.Interaction, tokill: discord.Member):
     await interaction.response.send_message(f"Killing {tokill.mention}")
 
+@tree.command(name="marry")
+async def marry(interaction: discord.Interaction, tomarry: discord.Member):
+    sent_user = interaction.user
+    await interaction.response.send_message(f"{sent_user.mention} has is married to {tomarry.mention}!")
+
+
 client.run(token)
 
 #lil int 6193533967284288

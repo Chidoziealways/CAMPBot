@@ -43,7 +43,14 @@ async def kill(interaction: discord.Interaction, tokill: discord.Member):
 
 @marry_group.command(name="propose")
 async def propose(interaction: discord.Interaction, tomarry: discord.Member):
+    marriages = load_marriages()
     sent_user = interaction.user
+    uid = str(sent_user.id)
+    if uid in marriages:
+        await interaction.response.send_message(
+            "You Are already married you cheater!"
+        )
+        return
     view = marry.MarryView(sent_user, tomarry)
     await interaction.response.send_message(f"{sent_user.mention} has proposed to {tomarry.mention}!",
                                             view=view)

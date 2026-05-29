@@ -27,9 +27,8 @@ tree.add_command(marry_group)
 
 @client.event
 async def on_ready():
-    guild = discord.Object(id=1461404394934501572)
-    tree.copy_global_to(guild=guild)
-    await tree.sync(guild=guild)
+    #guild = discord.Object(id=1461404394934501572)
+    #tree.copy_global_to(guild=guild)
     await tree.sync()
     print("Synced commands")
 

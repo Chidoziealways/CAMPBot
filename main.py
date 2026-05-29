@@ -22,18 +22,16 @@ marry_group = discord.app_commands.Group(
     description="Marriage related commands"
 )
 
-synced = False
-
 tree.add_command(mod_group)
 tree.add_command(marry_group)
 
 @client.event
 async def on_ready():
-    global synced
-    if not synced:
-        await tree.sync()
-        synced = True
-        print("Synced commands")
+    guild = discord.Object(id=1461404394934501572)
+    tree.copy_global_to(guild=guild)
+    await tree.sync(guild=guild)
+    await tree.sync()
+    print("Synced commands")
 
 @tree.command(name="ping")
 async def ping(interaction: discord.Interaction):

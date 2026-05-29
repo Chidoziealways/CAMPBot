@@ -1,4 +1,5 @@
-﻿import discord
+﻿from __future__ import annotations
+import discord
 from discord import app_commands
 
 class MarryView(discord.ui.View):
@@ -29,7 +30,7 @@ class MarryView(discord.ui.View):
         await interaction.response.send_message(
             f"{self.proposed.mention} accept the proposal!"
         )
-        await interaction.response.send_message(
+        await interaction.followup.send(
             f"{self.proposer.mention} and {self.proposed.mention} are now married!"
         )
 

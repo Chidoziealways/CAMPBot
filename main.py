@@ -43,8 +43,8 @@ async def ping(interaction: discord.Interaction):
 async def kill(interaction: discord.Interaction, tokill: discord.Member):
     await interaction.response.send_message(f"Killing {tokill.mention}")
 
-@marry_group.command(name="marry")
-async def marry(interaction: discord.Interaction, tomarry: discord.Member):
+@marry_group.command(name="propose")
+async def propose(interaction: discord.Interaction, tomarry: discord.Member):
     sent_user = interaction.user
     view = marry.MarryView(sent_user, tomarry)
     await interaction.response.send_message(f"{sent_user.mention} has proposed to {tomarry.mention}!",
@@ -61,8 +61,8 @@ async def ban(interaction: discord.Interaction, toban: discord.Member, reason: s
             ephemeral=True
         )
         return
-    await interaction.response.send_message(f"Banning {toban.mention}")
     await toban.ban(reason=reason)
+    await interaction.response.send_message(f"Banning {toban.mention}")
 
 @mod_group.command(name="kick")
 @app_commands.default_permissions(
@@ -75,22 +75,22 @@ async def kick(interaction: discord.Interaction, tokick: discord.Member, reason:
             ephemeral=True
         )
         return
-    await interaction.response.send_message(f"Kicking {tokick.mention}")
     await tokick.kick(reason=reason)
+    await interaction.response.send_message(f"Kicking {tokick.mention}")
 
 @mod_group.command(name="unban")
 @app_commands.default_permissions(
     ban_members=True
 )
-async def unban(interaction: discord.Interaction, tounban: discord.Member, reason: str):
+async def unban(interaction: discord.Interaction, tounban: discord.User, reason: str):
     if not interaction.user.guild_permissions.ban_members:
         await interaction.response.send_message(
             "No permission.",
             ephemeral=True
         )
         return
+    await interaction.guild.unban(tounban, reason=reason)
     await interaction.response.send_message(f"Unbanning {tounban.mention}")
-    await tounban.unban(reason=reason)
 
 
 client.run(token)

@@ -3,6 +3,9 @@ from discord import app_commands
 import marry
 import json
 import os
+
+from duel_view import DuelAcceptView
+from rps_view import RPSView
 from storage import load_marriages, save_marriages, MARRIAGE_FILE
 
 token = os.getenv("CAMPBOT_TOKEN")
@@ -24,8 +27,15 @@ marry_group = discord.app_commands.Group(
     description="Marriage related commands"
 )
 
+#game group
+game_group = discord.app_commands.Group(
+    name="game",
+    description="Game Commands"
+)
+
 tree.add_command(mod_group)
 tree.add_command(marry_group)
+tree.add_command(game_group)
 
 @client.event
 async def on_ready():
@@ -148,7 +158,31 @@ async def unban(interaction: discord.Interaction, tounban: discord.User, reason:
     await interaction.guild.unban(tounban, reason=reason)
     await interaction.response.send_message(f"Unbanning {tounban.mention}")
 
+@game_group.command(name="duel")
+async def duel(interaction: discord.Interaction, opponent: discord.Member):
+    view = DuelAcceptView(
+        interaction.user,
+        opponent
+    )
 
+    await interaction.response.send_message(
+        f"{interaction.user.mention} challenged "
+        f"{opponent.mention} to a DUEL!",
+        view=view
+    )
+
+@game_group.command(name="rps")
+async def rps(interaction: discord.Interaction, opponent: discord.Member):
+    view = RPSView(
+        interaction.user,
+        opponent
+    )
+
+    await interaction.response.send_message(
+        f"{interaction.user.mention} challenged "
+        f"{opponent.mention} to Rock Paper Scissors!",
+        view=view
+    )
 client.run(token)
 
 #lil int 6193533967284288

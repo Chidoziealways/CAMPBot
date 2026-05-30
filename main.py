@@ -12,6 +12,7 @@ token = os.getenv("CAMPBOT_TOKEN")
 if token is None:
     raise RuntimeError("Missing CAMPBOT_TOKEN")
 intents = discord.Intents.default()
+intents.message_content = True
 client = discord.Client(intents=intents)
 tree = discord.app_commands.CommandTree(client)
 

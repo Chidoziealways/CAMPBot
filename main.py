@@ -192,9 +192,10 @@ async def on_message(message: discord.Message):
 
     if message.content.lower() == "hello":
         await message.channel.send("Hi!")
-
-    if message.content.lower() == "fuck you" or message.content.lower() == "sybau":
+    elif message.content.lower().__contains__("fuck you") or message.content.lower().__contains__("sybau"):
         await message.channel.send("Don't say that!")
+    if message.content.lower().__contains__("femboy") or message.content.lower().__contains__("gay") and message.author.id == 1488609494303903885 :
+        await message.channel.send("We don't tolerate such things! Begone!")
 client.run(token)
 
 #lil int 6193533967284288

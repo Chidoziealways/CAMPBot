@@ -183,6 +183,17 @@ async def rps(interaction: discord.Interaction, opponent: discord.Member):
         f"{opponent.mention} to Rock Paper Scissors!",
         view=view
     )
+
+@client.event
+async def on_message(message: discord.Message):
+    if message.author.bot:
+        return
+
+    if message.content.lower() == "hello":
+        await message.channel.send("Hi!")
+
+    if message.content.lower() == "fuck you" or message.content.lower() == "sybau":
+        await message.channel.send("Don't say that!")
 client.run(token)
 
 #lil int 6193533967284288
